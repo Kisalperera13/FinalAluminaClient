@@ -56,7 +56,7 @@ const Navbar = () => {
             },
           }}
         >
-          Sociopedia
+          Alumana DCS
         </Typography>
         {isNonMobileScreens && (
           <FlexBetween
