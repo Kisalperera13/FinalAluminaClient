@@ -6,6 +6,11 @@ import {
   useMediaQuery,
   Typography,
   useTheme,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormHelperText,        
 } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
@@ -24,6 +29,14 @@ const registerSchema = yup.object().shape({
   location: yup.string().required("required"),
   occupation: yup.string().required("required"),
   picture: yup.string().required("required"),
+  enteredYear: yup.number().required("required"),
+  passOutYear: yup.number().required("required"),
+  enteredYear: yup.number().required("required"),
+  phoneNumber: yup.number().required("required"),
+  roleOfDegree: yup.string().required("required"),
+  studentIdNumber: yup.string().required("required"),
+  workPlace: yup.string().required("required"),
+  country: yup.string().required("required"),
 });
 
 const loginSchema = yup.object().shape({
@@ -34,11 +47,20 @@ const loginSchema = yup.object().shape({
 const initialValuesRegister = {
   firstName: "",
   lastName: "",
+  enteredYear: "",
+  passOutYear: "",
+  studentIdNumber: "",
+  phoneNumber: "",
+  country: "",
+  location: "",
+  roleOfDegree: "",
+  workPlace: "",
+  occupation: "",
   email: "",
   password: "",
-  location: "",
-  occupation: "",
   picture: "",
+  viewedProfile:"",
+  impressions: "",
 };
 
 const initialValuesLogin = {
@@ -152,17 +174,107 @@ const Form = () => {
                   sx={{ gridColumn: "span 2" }}
                 />
                 <TextField
-                  label="Location"
+                  label="Entered Year"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.enteredYear}
+                  name="enteredYear"
+                  error={Boolean(touched.enteredYear) && Boolean(errors.enteredYear)}
+                  helperText={touched.enteredYear && errors.enteredYear}
+                  sx={{ gridColumn: "span 2" }}
+                />
+                <TextField
+                  label="Pass Out Year"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.passOutYear}
+                  name="passOutYear"
+                  error={
+                    Boolean(touched.passOutYear) && Boolean(errors.passOutYear)
+                  }
+                  helperText={touched.passOutYear && errors.passOutYear}
+                  sx={{ gridColumn: "span 2" }}
+                />
+                <TextField
+                  label="Student ID Number ( SC / Year / ID )"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.studentIdNumber}
+                  name="studentIdNumber"
+                  error={Boolean(touched.studentIdNumber) && Boolean(errors.studentIdNumber)}
+                  helperText={touched.studentIdNumber && errors.studentIdNumber}
+                  sx={{ gridColumn: "span 4" }}
+                />
+                <TextField
+                  label="Country"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.country}
+                  name="country"
+                  error={Boolean(touched.country) && Boolean(errors.country)}
+                  helperText={touched.country && errors.country}
+                  sx={{ gridColumn: "span 2" }}
+                />
+                <TextField
+                  label="City"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.location}
                   name="location"
                   error={Boolean(touched.location) && Boolean(errors.location)}
                   helperText={touched.location && errors.location}
-                  sx={{ gridColumn: "span 4" }}
+                  sx={{ gridColumn: "span 2" }}
                 />
                 <TextField
-                  label="Occupation"
+                  label="Phone Number"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.phoneNumber}
+                  name="phoneNumber"
+                  error={
+                    Boolean(touched.phoneNumber) && Boolean(errors.phoneNumber)
+                  }
+                  helperText={touched.phoneNumber && errors.phoneNumber}
+                  sx={{ gridColumn: "span 4" }}
+                />
+
+
+              <FormControl sx={{ gridColumn: "span 4" }}>
+                            <InputLabel htmlFor="role">Role Of Degree</InputLabel>
+                            <Select
+                              labelId="role-label"
+                              id="role"
+                              value={values.roleOfDegree}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              name="roleOfDegree"
+                              error={Boolean(touched.roleOfDegree) && Boolean(errors.roleOfDegree)}
+                            >
+                              <MenuItem value="BCS General">BCS General</MenuItem>
+                              <MenuItem value="BCS Special">BCS Special</MenuItem>
+                              <MenuItem value="BSC General">BSC General</MenuItem>
+                              <MenuItem value="BSC Special">BSC Special</MenuItem>
+                            </Select>
+                            {touched.roleOfDegree && errors.roleOfDegree && (
+                              <FormHelperText error>{errors.roleOfDegree}</FormHelperText>
+                            )}
+                </FormControl>
+
+                <TextField
+                  label="workPlace"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.workPlace}
+                  name="workPlace"
+                  error={
+                    Boolean(touched.workPlace) && Boolean(errors.workPlace)
+                  }
+                  helperText={touched.workPlace && errors.workPlace}
+                  sx={{ gridColumn: "span 4" }}
+                />
+
+                <TextField
+                  label="Job Position"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.occupation}
@@ -173,6 +285,7 @@ const Form = () => {
                   helperText={touched.occupation && errors.occupation}
                   sx={{ gridColumn: "span 4" }}
                 />
+
                 <Box
                   gridColumn="span 4"
                   border={`1px solid ${palette.neutral.medium}`}
@@ -195,7 +308,7 @@ const Form = () => {
                       >
                         <input {...getInputProps()} />
                         {!values.picture ? (
-                          <p>Add Picture Here</p>
+                          <p>Profile Picture</p>
                         ) : (
                           <FlexBetween>
                             <Typography>{values.picture.name}</Typography>
