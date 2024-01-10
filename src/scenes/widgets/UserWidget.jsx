@@ -46,6 +46,13 @@ const UserWidget = ({ userId, picturePath }) => {
     viewedProfile,
     impressions,
     friends,
+    enteredYear,
+    passOutYear,
+    phoneNumber,
+    roleOfDegree,
+    studentIdNumber,
+    workPlace,
+    country,
   } = user;
 
   return (
@@ -113,6 +120,58 @@ const UserWidget = ({ userId, picturePath }) => {
       <Divider />
 
       {/* FOURTH ROW */}
+      <Box p="1rem 0">
+        <Typography fontSize="1rem" color={main} fontWeight="500" mb="1rem">
+          Educational & Work Information
+        </Typography>
+
+        <Box display="flex" alignItems="center" gap="1rem" mb="0.5rem">
+          <Typography fontSize="1rem" color={main} fontWeight="500" mr="0.5rem">
+            Entered Year:
+          </Typography>
+          <Typography color={medium}>{enteredYear}</Typography>
+        </Box>
+        <Box display="flex" alignItems="center" gap="1rem" mb="0.5rem">
+          <Typography fontSize="1rem" color={main} fontWeight="500" mr="0.5rem">
+            Pass Out Year:
+          </Typography>
+          <Typography color={medium}>{passOutYear}</Typography>
+        </Box>
+        <Box display="flex" alignItems="center" gap="1rem" mb="0.5rem">
+          <Typography fontSize="1rem" color={main} fontWeight="500" mr="0.5rem">
+            Phone Number:
+          </Typography>
+          <Typography color={medium}>{phoneNumber}</Typography>
+        </Box>
+        <Box display="flex" alignItems="center" gap="1rem" mb="0.5rem">
+          <Typography fontSize="1rem" color={main} fontWeight="500" mr="0.5rem">
+            Role of Degree:
+          </Typography>
+          <Typography color={medium}>{roleOfDegree}</Typography>
+        </Box>
+        <Box display="flex" alignItems="center" gap="1rem" mb="0.5rem">
+          <Typography fontSize="1rem" color={main} fontWeight="500" mr="0.5rem">
+            Student ID Number:
+          </Typography>
+          <Typography color={medium}>{studentIdNumber}</Typography>
+        </Box>
+        <Box display="flex" alignItems="center" gap="1rem">
+          <Typography fontSize="1rem" color={main} fontWeight="500" mr="0.5rem">
+            Work Place:
+          </Typography>
+          <Typography color={medium}>{workPlace}</Typography>
+        </Box>
+        <Box display="flex" alignItems="center" gap="1rem">
+          <Typography fontSize="1rem" color={main} fontWeight="500" mr="0.5rem">
+            Country:
+          </Typography>
+          <Typography color={medium}>{country}</Typography>
+        </Box>
+      </Box>
+
+      <Divider />
+
+      {/* FIFTH ROW */}
       <Box p="1rem 0">
         <Typography fontSize="1rem" color={main} fontWeight="500" mb="1rem">
           Social Profiles

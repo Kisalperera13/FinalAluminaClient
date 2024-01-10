@@ -10,7 +10,6 @@ const PostsWidget = ({ userId, isProfile = false }) => {
 
   const initialState = {
     posts: [],
-    // other state properties...
   };
 const getPosts = async () => {
   try {
@@ -44,7 +43,7 @@ const getPosts = async () => {
     } else {
       getPosts();
     }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); 
 
   return (
     <>

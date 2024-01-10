@@ -5,6 +5,8 @@ import App from './App';
 import authReducer from "./state";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
+import { api } from "state/api.js";
+
 import {
   persistStore,
   persistReducer,
@@ -27,7 +29,7 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(api.middleware), // Add RTK-Query middleware here
 });
   
 const root = ReactDOM.createRoot(document.getElementById('root'));
