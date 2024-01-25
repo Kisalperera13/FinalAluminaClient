@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { useGetTransactionsQuery } from "state/api";
+import { useGetSearchQuery } from 'state/api';
+
 import Header from "components/Header";
 import DataGridCustomToolbar from "components/DataGridCustomToolbar";
 
-const Transactions = () => {
+const SearchResults = () => {
   const theme = useTheme();
 
   // values to be sent to the backend
@@ -15,12 +16,13 @@ const Transactions = () => {
   const [search, setSearch] = useState("");
 
   const [searchInput, setSearchInput] = useState("");
-  const { data, isLoading } = useGetTransactionsQuery({
+  const { data, isLoading } = useGetSearchQuery({
     page,
     pageSize,
     sort: JSON.stringify(sort),
     search,
   });
+  console.log('data',data)
 
   const columns = [
     {
@@ -29,33 +31,35 @@ const Transactions = () => {
       flex: 1,
     },
     {
-      field: "userId",
-      headerName: "User ID",
+      field: "firstName",
+      headerName: "First Name",
       flex: 1,
     },
     {
-      field: "createdAt",
-      headerName: "CreatedAt",
+      field: "occupation",
+      headerName: "Occupation",
       flex: 1,
     },
     {
-      field: "products",
-      headerName: "# of Products",
-      flex: 0.5,
-      sortable: false,
-      renderCell: (params) => params.value.length,
+      field: "workPlace",
+      headerName: "Workplace",
+      flex: 1,
     },
     {
-      field: "cost",
-      headerName: "Cost",
+      field: "email",
+      headerName: "Email",
       flex: 1,
-      renderCell: (params) => `$${Number(params.value).toFixed(2)}`,
+    },
+    {
+      field: "phoneNumber",
+      headerName: "Phone Number",
+      flex: 1,
     },
   ];
 
   return (
     <Box m="1.5rem 2.5rem">
-      <Header title="Search Users"  />
+      <Header title="SEARCH RESULTS" subtitle="List of users matching the search" />
       <Box
         height="80vh"
         sx={{
@@ -86,7 +90,7 @@ const Transactions = () => {
         <DataGrid
           loading={isLoading || !data}
           getRowId={(row) => row._id}
-          rows={(data && data.transactions) || []}
+          rows={(data && data.users) || []}
           columns={columns}
           rowCount={(data && data.total) || 0}
           rowsPerPageOptions={[20, 50, 100]}
@@ -108,4 +112,4 @@ const Transactions = () => {
   );
 };
 
-export default Transactions;
+export default SearchResults;

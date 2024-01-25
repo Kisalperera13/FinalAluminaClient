@@ -12,11 +12,10 @@ import { themeSettings } from "./theme";
 import Layout from "scenes/layout";
 import Dashboard from "scenes/dashboard";
 import NewlyRegister from "scenes/newlyregister";
-import Search from "scenes/transactions";
 import AddPosts from "scenes/addPosts";
 import Chat from "scenes/chat";
 import Events from "scenes/events";
-import Transactions from "scenes/transactions";
+import Search from "scenes/search"
 
 
 
@@ -49,7 +48,6 @@ function App() {
               <Route path="/AddPosts" element={<AddPosts/>} />
               <Route path="/Chat" element={<Chat />} />
               <Route path="/Events" element={<Events/>} />
-              <Route path="/transactions" element={<Transactions />} />
 
             </Route>
 

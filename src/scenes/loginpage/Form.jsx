@@ -255,9 +255,7 @@ const Form = () => {
                               <MenuItem value="BSC General">BSC General</MenuItem>
                               <MenuItem value="BSC Special">BSC Special</MenuItem>
                             </Select>
-                            {touched.roleOfDegree && errors.roleOfDegree && (
-                              <FormHelperText error>{errors.roleOfDegree}</FormHelperText>
-                            )}
+                            
                 </FormControl>
 
                 <TextField
