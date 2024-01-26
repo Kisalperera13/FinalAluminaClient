@@ -10,7 +10,6 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  FormHelperText,        
 } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
@@ -31,7 +30,6 @@ const registerSchema = yup.object().shape({
   picture: yup.string().required("required"),
   enteredYear: yup.number().required("required"),
   passOutYear: yup.number().required("required"),
-  enteredYear: yup.number().required("required"),
   phoneNumber: yup.number().required("required"),
   roleOfDegree: yup.string().required("required"),
   studentIdNumber: yup.string().required("required"),
@@ -76,6 +74,7 @@ const Form = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const isLogin = pageType === "login";
   const isRegister = pageType === "register";
+  const baseURL = process.env.REACT_APP_BASE_URL;
 
   const register = async (values, onSubmitProps) => {
     // this allows us to send form info with image
@@ -85,8 +84,10 @@ const Form = () => {
     }
     formData.append("picturePath", values.picture.name);
 
+    
+
     const savedUserResponse = await fetch(
-      "http://localhost:3001/auth/register",
+      `${baseURL}/auth/register`,
       {
         method: "POST",
         body: formData,
@@ -101,7 +102,7 @@ const Form = () => {
   };
 
   const login = async (values, onSubmitProps) => {
-    const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
+    const loggedInResponse = await fetch(`${baseURL}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),

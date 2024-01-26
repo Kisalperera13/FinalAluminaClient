@@ -9,7 +9,7 @@ import {
 } from "@mui/icons-material";
 import FlexBetween from "components/FlexBetween";
 import { useDispatch } from "react-redux";
-import { setMode } from "state";
+import { setMode,setAdminLogout } from "state";
 import profileImage from "assets/profile.jpeg";
 import {
   AppBar,
@@ -118,7 +118,7 @@ const AdminNavbar = ({  isSidebarOpen, setIsSidebarOpen }) => {
               onClose={handleClose}
               anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             >
-              <MenuItem onClick={handleClose}>Log Out</MenuItem>
+              <MenuItem onClick={() => dispatch(setAdminLogout())}>Log Out</MenuItem>
             </Menu>
           </FlexBetween>
         </FlexBetween>

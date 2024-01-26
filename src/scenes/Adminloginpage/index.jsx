@@ -1,17 +1,10 @@
 import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 import Form from "./Form";
-import { Button } from '@mui/material';
-import { useNavigate } from "react-router-dom";
 
 
 
-const LoginPage = () => {
+const AdminLoginPage = () => {
 
-  const navigate = useNavigate();
-
-  const handleAdminButtonClick = () => {
-    navigate('/adminlogin');
-  };
 
   const theme = useTheme();
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
@@ -27,20 +20,7 @@ const LoginPage = () => {
           Alumna DCS
         </Typography>
       </Box>
-        <Button
-            variant="contained"
-            color="primary"
-            style={{
-              position: 'absolute',
-              top: '1.3rem',
-              right: '0.5rem',
-            }}
-            onClick={() => {
-              handleAdminButtonClick()
-            }}
-          >
-          Admin Panel
-        </Button>
+ 
 
 
       <Box
@@ -51,7 +31,7 @@ const LoginPage = () => {
         backgroundColor={theme.palette.background.alt}
       >
         <Typography fontWeight="500" variant="h5" sx={{ mb: "1.5rem" }}>
-          Welcome to Alumna DCS !
+          Admin Login to Alumna !
         </Typography>
         <Form />
       </Box>
@@ -59,4 +39,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default AdminLoginPage;

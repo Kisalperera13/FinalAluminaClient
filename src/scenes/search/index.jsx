@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Box, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useGetSearchQuery } from 'state/api';
@@ -8,6 +8,7 @@ import DataGridCustomToolbar from "components/DataGridCustomToolbar";
 
 const SearchResults = () => {
   const theme = useTheme();
+  const baseURL = process.env.REACT_APP_BASE_URL;
 
   // values to be sent to the backend
   const [page, setPage] = useState(0);
@@ -22,6 +23,7 @@ const SearchResults = () => {
     sort: JSON.stringify(sort),
     search,
   });
+  
   console.log('data',data)
 
   const columns = [

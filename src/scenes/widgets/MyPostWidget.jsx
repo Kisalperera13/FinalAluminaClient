@@ -36,6 +36,8 @@ import {
     const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
     const mediumMain = palette.neutral.mediumMain;
     const medium = palette.neutral.medium;
+    const baseURL = process.env.REACT_APP_BASE_URL;
+
   
     const handlePost = async () => {
       const formData = new FormData();
@@ -46,7 +48,7 @@ import {
         formData.append("picturePath", image.name);
       }
   
-      const response = await fetch(`http://localhost:3001/posts`, {
+      const response = await fetch(`${baseURL}/posts`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
         body: formData,

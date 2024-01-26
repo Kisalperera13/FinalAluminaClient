@@ -8,22 +8,19 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   const posts = useSelector((state) => state.posts);
   const token = useSelector((state) => state.token);
 
-  const initialState = {
-    posts: [],
+  const getPosts = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/posts", {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await response.json();
+      console.log("API Response:", data);
+      dispatch(setPosts({ posts: data }));
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
   };
-const getPosts = async () => {
-  try {
-    const response = await fetch("http://localhost:3001/posts", {
-      method: "GET",
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    const data = await response.json();
-    console.log("API Response:", data);
-    dispatch(setPosts({ posts: data }));
-  } catch (error) {
-    console.error("Error fetching posts:", error);
-  }
-};
 
   const getUserPosts = async () => {
     const response = await fetch(
