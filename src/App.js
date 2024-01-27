@@ -26,7 +26,7 @@ function App() {
   const mode = useSelector((state) => state.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   const isAuth = Boolean(useSelector((state) => state.token));
-
+  const isAdmin = useSelector((state) => state.admin?.admin === true);
 
   return (
     <div className="app">
@@ -45,12 +45,12 @@ function App() {
 
             <Route element={<Layout />}>
               <Route path="/" element={<Navigate to="/dashboard" replace />} />
-              <Route path="/dashboard" element={isAuth ? <Dashboard />: <Navigate to="/adminlogin" />} />
-              <Route path="/NewlyRegister" element={isAuth ? <NewlyRegister />: <Navigate to="/adminlogin" />} />
-              <Route path="/Search" element={isAuth ? <Search />: <Navigate to="/adminlogin" />} />
-              <Route path="/AddPosts" element={isAuth ? <AddPosts/>: <Navigate to="/adminlogin" />} />
-              <Route path="/Chat" element={isAuth ? <Chat />: <Navigate to="/adminlogin" />} />
-              <Route path="/Events" element={isAuth ? <Events/>: <Navigate to="/adminlogin" />} />
+              <Route path="/dashboard" element={isAuth && isAdmin ? <Dashboard />: <Navigate to="/adminlogin" />} />
+              <Route path="/NewlyRegister" element={isAuth && isAdmin  ? <NewlyRegister />: <Navigate to="/adminlogin" />} />
+              <Route path="/Search" element={isAuth  && isAdmin ? <Search />: <Navigate to="/adminlogin" />} />
+              <Route path="/AddPosts" element={isAuth  && isAdmin ? <AddPosts/>: <Navigate to="/adminlogin" />} />
+              <Route path="/Chat" element={isAuth  && isAdmin ? <Chat />: <Navigate to="/adminlogin" />} />
+              <Route path="/Events" element={isAuth  && isAdmin ? <Events/>: <Navigate to="/adminlogin" />} />
 
             </Route>
 

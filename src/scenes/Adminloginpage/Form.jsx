@@ -41,12 +41,14 @@ const Form = () => {
       body: JSON.stringify(values),
     });
     const loggedIn = await loggedInResponse.json();
+    console.log(loggedIn);
     onSubmitProps.resetForm();
     if (loggedIn.token) {
       dispatch(
         setLogin({
-          user: loggedIn.admin,
+          admin: loggedIn.admin,
           token: loggedIn.token,
+          user: loggedIn.user,
         })
       );
       navigate("/dashboard");
