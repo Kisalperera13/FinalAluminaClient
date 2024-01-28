@@ -15,8 +15,16 @@ const PostsWidget = ({ userId, isProfile = false }) => {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.json();
-      console.log("API Response:", data);
-      dispatch(setPosts({ posts: data }));
+
+      if (data) {
+        // Reverse the order of the posts
+        const reversedPosts = data.reverse();
+  
+        console.log("API Response:", reversedPosts);
+        dispatch(setPosts({ posts: reversedPosts }));
+      } else {
+        console.error('Unexpected data format:', data);
+      }
     } catch (error) {
       console.error("Error fetching posts:", error);
     }

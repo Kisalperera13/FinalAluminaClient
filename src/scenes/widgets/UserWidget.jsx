@@ -20,6 +20,7 @@ const UserWidget = ({ userId, picturePath }) => {
   const dark = palette.neutral.dark;
   const medium = palette.neutral.medium;
   const main = palette.neutral.main;
+  const isAdmin = useSelector((state) => state.admin?.admin === true);
 
   const getUser = async () => {
     const response = await fetch(`http://localhost:3001/users/${userId}`, {
@@ -99,9 +100,8 @@ const UserWidget = ({ userId, picturePath }) => {
         </Box>
       </Box>
 
-      <Divider />
 
-      {/* THIRD ROW */}
+      {/* THIRD ROW
       <Box p="1rem 0">
         <FlexBetween mb="0.5rem">
           <Typography color={medium}>Who's viewed your profile</Typography>
@@ -110,12 +110,12 @@ const UserWidget = ({ userId, picturePath }) => {
           </Typography>
         </FlexBetween>
         <FlexBetween>
-          <Typography color={medium}>Impressions of your post</Typography>
+          <Typography  color={medium}>Impressions of your post</Typography>
           <Typography color={main} fontWeight="500">
             {impressions}
           </Typography>
         </FlexBetween>
-      </Box>
+      </Box> */}
 
       <Divider />
 
@@ -131,12 +131,14 @@ const UserWidget = ({ userId, picturePath }) => {
           </Typography>
           <Typography color={medium}>{enteredYear}</Typography>
         </Box>
-        <Box display="flex" alignItems="center" gap="1rem" mb="0.5rem">
-          <Typography fontSize="1rem" color={main} fontWeight="500" mr="0.5rem">
-            Pass Out Year:
-          </Typography>
-          <Typography color={medium}>{passOutYear}</Typography>
-        </Box>
+        {isAdmin && (
+          <Box display="flex" alignItems="center" gap="1rem" mb="0.5rem">
+            <Typography fontSize="1rem" color={main} fontWeight="500" mr="0.5rem">
+              Pass Out Year:
+            </Typography>
+            <Typography color={medium}>{passOutYear}</Typography>
+          </Box>
+        )}
         <Box display="flex" alignItems="center" gap="1rem" mb="0.5rem">
           <Typography fontSize="1rem" color={main} fontWeight="500" mr="0.5rem">
             Phone Number:

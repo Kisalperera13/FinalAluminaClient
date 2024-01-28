@@ -53,8 +53,16 @@ import {
         headers: { Authorization: `Bearer ${token}` },
         body: formData,
       });
-      const posts = await response.json();
-      dispatch(setPosts({ posts }));
+      const data = await response.json();
+      if (data) {
+        // Reverse the order of the posts
+        const reversedPosts = data.reverse();
+  
+        console.log("API Response:", reversedPosts);
+        dispatch(setPosts({ posts: reversedPosts }));
+      } else {
+        console.error('Unexpected data format:', data);
+      }
       setImage(null);
       setPost("");
     };
