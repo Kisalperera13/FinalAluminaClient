@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "components/Header";
 
 
+
 const NewlyRegister = () => {
   const baseURL = process.env.REACT_APP_BASE_URL;
   const token = useSelector((state) => state.token);
@@ -41,15 +42,46 @@ const NewlyRegister = () => {
 
 
   const handleAcceptUser = async (userId) => {
-    //const response = await fetch(`${baseURL}/admin/approve/${userId}`);
+    try {
+      const response = await fetch(
+        `${baseURL}/admin/approve/${userId}`, {
+          method: "PUT",
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+    } catch (error) {
+      console.error("An error occurred during the fetch:", error);
+    }
     setNewUsers(users.filter(user => user._id !== userId))
-  };
 
-  const handleRejectUser = (userId) => {
-    // const response = await fetch(`${baseURL}/admin/reject/${userId}`);
+  };
+  
+
+  const handleRejectUser = async (userId) => {
+    try {
+      const response = await fetch(
+        `${baseURL}/admin/reject/${userId}`, {
+          method: "PUT",
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+    } catch (error) {
+      console.error("An error occurred during the fetch:", error);
+    }
     setNewUsers(users.filter(user => user._id !== userId))
-  };
 
+  };
+  
   
 
   return (
