@@ -36,7 +36,7 @@ export const authSlice = createSlice({
       }
     },
     setPosts: (state, action) => {
-      state.posts = action.payload.posts;
+      state.posts = action.payload.posts.reverse();
     },
     setSearch: (state, action) => {
       state.searchs = action.payload.searchs;
@@ -51,6 +51,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setSearch, setMode, setLogin, setLogout, setFriends, setPosts, setPost, setAdminLogout } =
+export const {setSearch, setMode, setLogin, setLogout, setFriends, setPosts, setPost ,setAdminLogout } =
   authSlice.actions;
 export default authSlice.reducer;

@@ -10,7 +10,11 @@ import Friend from "components/Friend";
 import WidgetWrapper from "components/WidgetWrapper";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPost } from "state";
+import { setPost , setPosts } from "state";
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+
+
+
 
 const PostWidget = ({
   postId,
@@ -23,12 +27,16 @@ const PostWidget = ({
   likes,
   comments,
 }) => {
-  const [isComments, setIsComments] = useState(false);
+  const [isComments, setIsComments,isDeleted, setIsDeleted] = useState(false);
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
   const loggedInUserId = useSelector((state) => state.user._id);
   const isLiked = Boolean(likes[loggedInUserId]);
   const likeCount = Object.keys(likes).length;
+  const baseURL = process.env.REACT_APP_BASE_URL;
+
+
+
 
   const { palette } = useTheme();
   const main = palette.neutral.main;
@@ -47,6 +55,31 @@ const PostWidget = ({
     dispatch(setPost({ post: updatedPost }));
   };
 
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(`${baseURL}/posts/delete/${postId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+
+        const data = await response.json();
+        dispatch(setPosts({ posts: data }));
+
+        console.log('Post deleted successfully');
+      } else {
+        // Handle errors
+        console.error('Failed to delete post');
+      }
+    } catch (error) {
+      console.error('Error1 deleting post:', error);
+    }
+  };
+
+
   return (
     <WidgetWrapper m="2rem 0">
       <Friend
@@ -64,7 +97,7 @@ const PostWidget = ({
           height="auto"
           alt="post"
           style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`http://localhost:3001/assets/${picturePath}`}
+          src={`${baseURL}/assets/${picturePath}`}
         />
       )}
       <FlexBetween mt="0.25rem">
@@ -86,6 +119,14 @@ const PostWidget = ({
             </IconButton>
             <Typography>{comments.length}</Typography>
           </FlexBetween>
+
+          { loggedInUserId==postUserId && ( <FlexBetween gap="0.3rem">
+            <IconButton>
+              <DeleteOutlineIcon onClick={handleDelete}/>
+            </IconButton>
+          </FlexBetween>
+          )}
+      
         </FlexBetween>
 
         <IconButton>

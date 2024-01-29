@@ -55,11 +55,8 @@ import {
       });
       const data = await response.json();
       if (data) {
-        // Reverse the order of the posts
-        const reversedPosts = data.reverse();
-  
-        console.log("API Response:", reversedPosts);
-        dispatch(setPosts({ posts: reversedPosts }));
+        console.log("API Response:", data);
+        dispatch(setPosts({ posts: data }));
       } else {
         console.error('Unexpected data format:', data);
       }
