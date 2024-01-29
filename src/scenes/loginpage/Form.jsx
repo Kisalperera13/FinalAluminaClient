@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState , } from "react";
 import {
   Box,
   Button,
@@ -30,6 +30,7 @@ const registerSchema = yup.object().shape({
   picture: yup.string().required("required"),
   enteredYear: yup.number().required("required"),
   passOutYear: yup.number().required("required"),
+  enteredYear: yup.number().required("required"),
   phoneNumber: yup.number().required("required"),
   roleOfDegree: yup.string().required("required"),
   studentIdNumber: yup.string().required("required"),
@@ -72,9 +73,11 @@ const Form = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isNonMobile = useMediaQuery("(min-width:600px)");
-  const isLogin = pageType === "login";
+  const isLogin = pageType === "login"; 
   const isRegister = pageType === "register";
   const baseURL = process.env.REACT_APP_BASE_URL;
+  // const [formError, setFormError] = useState("");
+
 
   const register = async (values, onSubmitProps) => {
     // this allows us to send form info with image
@@ -100,25 +103,40 @@ const Form = () => {
       setPageType("login");
     }
   };
+  //    const loggedInResponse = await fetch(`${baseURL}/auth/login`,
 
   const login = async (values, onSubmitProps) => {
-    const loggedInResponse = await fetch(`${baseURL}/auth/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
-    });
-    const loggedIn = await loggedInResponse.json();
-    onSubmitProps.resetForm();
-    if (loggedIn) {
-      dispatch(
-        setLogin({
-          user: loggedIn.user,
-          token: loggedIn.token,
-        })
-      );
-      navigate("/home");
+    try {
+      const loggedInResponse = await fetch(`${baseURL}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+  
+      if (!loggedInResponse.ok) {
+        if (loggedInResponse.status === 400) {
+          onSubmitProps.setErrors({ email: "Invalid email or password" ,password: "Invalid email or password",});     
+
+        }
+        return;
+      }
+  
+      const loggedIn = await loggedInResponse.json();
+      onSubmitProps.resetForm();
+      if (loggedIn.token) {
+        dispatch(
+          setLogin({
+            user: loggedIn.user,
+            token: loggedIn.token,
+          })
+        );
+        navigate("/home");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
     }
   };
+  
 
   const handleFormSubmit = async (values, onSubmitProps) => {
     if (isLogin) await login(values, onSubmitProps);
@@ -150,6 +168,7 @@ const Form = () => {
               "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
             }}
           >
+
             {isRegister && (
               <>
                 <TextField
@@ -346,37 +365,40 @@ const Form = () => {
 
           {/* BUTTONS */}
           <Box>
-            <Button
-              fullWidth
-              type="submit"
-              sx={{
-                m: "2rem 0",
-                p: "1rem",
-                backgroundColor: palette.primary.main,
-                color: palette.background.alt,
-                "&:hover": { color: palette.primary.main },
-              }}
-            >
-              {isLogin ? "LOGIN" : "REGISTER"}
-            </Button>
-            <Typography
-              onClick={() => {
-                setPageType(isLogin ? "register" : "login");
-                resetForm();
-              }}
-              sx={{
-                textDecoration: "underline",
-                color: palette.primary.main,
-                "&:hover": {
-                  cursor: "pointer",
-                  color: palette.primary.light,
-                },
-              }}
-            >
-              {isLogin
-                ? "Don't have an account? Sign Up here."
-                : "Already have an account? Login here."}
-            </Typography>
+              <>
+                {/* BUTTONS */}
+                <Button
+                  fullWidth
+                  type="submit"
+                  sx={{
+                    m: "2rem 0",
+                    p: "1rem",
+                    backgroundColor: palette.primary.main,
+                    color: palette.background.alt,
+                    "&:hover": { color: palette.primary.main },
+                  }}
+                >
+                  {isLogin ? "LOGIN" : "REGISTER"}
+                </Button>
+                <Typography
+                  onClick={() => {
+                    setPageType(isLogin ? "register" : "login");
+                    resetForm();
+                  }}
+                  sx={{
+                    textDecoration: "underline",
+                    color: palette.primary.main,
+                    "&:hover": {
+                      cursor: "pointer",
+                      color: palette.primary.light,
+                    },
+                  }}
+                >
+                  {isLogin
+                    ? "Don't have an account? Sign Up here."
+                    : "Already have an account? Login here."}
+                </Typography>
+              </>
           </Box>
         </form>
       )}
