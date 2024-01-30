@@ -123,16 +123,25 @@ const NewlyRegister = () => {
                   Email: {user.email}
                 </Typography>
                 <Typography variant="body1" mt="0.5rem">
-                  Pass Out Year: {user.passOutYear}
+                 Location: {user.location}
                 </Typography>
                 <Typography variant="body1" mt="0.5rem">
-                  Pass Out Year: {user.passOutYear}
+                 Country: {user.country}
                 </Typography>
                 <Typography variant="body1" mt="0.5rem">
-                  Pass Out Year: {user.passOutYear}
+                  Ocupation: {user.occupation}
                 </Typography>
                 <Typography variant="body1" mt="0.5rem">
-                  Pass Out Year: {user.passOutYear}
+                 Work Place: {user.workPlace}
+                </Typography>
+                <Typography variant="body1" mt="0.5rem">
+                  Entered Year: {user.enteredYear}
+                </Typography>
+                <Typography variant="body1" mt="0.5rem">
+                  PhoneNumber: {user.phoneNumber}
+                </Typography>
+                <Typography variant="body1" mt="0.5rem">
+                Student Id Number: {user.studentIdNumber}
                 </Typography>
                 {/* Add other user details here */}
               </CardContent>
